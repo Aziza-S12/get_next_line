@@ -6,7 +6,7 @@
 /*   By: asadritd <asadritd@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 13:16:57 by asadritd          #+#    #+#             */
-/*   Updated: 2022/09/15 19:21:22 by asadritd         ###   ########.fr       */
+/*   Updated: 2022/09/15 20:02:16 by asadritd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,15 @@ char	wh_remain(char *remain, char **line)
 	
 	ptr_n = NULL;
 	if(remain)	
-		if((ptr_n = ft_strchr(remain, '\n')))
+		if((ptr_n = gnl_strchr(remain, '\n')))
 		{
 			*ptr_n = '\0';
-			*line = ft_strdup(remain);
+			*line = gnl_strdup(remain);
 			ft_strcpy(remain, ++ptr_n);
 		}
 		else
 		{
-			*line = ft_strdup(remain);
+			*line = gnl_strdup(remain);
 			strclr(remain);
 		}
 	else
@@ -47,11 +47,11 @@ char	*get_next_line(int fd)
 	while (!ptr_n && (bt_read = read(fd, buf, BUFF_SIZE)))
 	{
 		buf[bt_read] = '\0';
-		if((ptr_n = ft_strchr(buf, '\n')))
+		if((ptr_n = gnl_strchr(buf, '\n')))
 		{
 			*ptr_n = '\0';
 			ptr_n++;
-			remain = ft_strdup(ptr_n);
+			remain = gnl_strdup(ptr_n);
 		}
 		keep = *line;
 		*line = ft_strjoin(*line, buf);
