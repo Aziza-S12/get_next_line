@@ -6,7 +6,7 @@
 /*   By: asadritd <asadritd@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 13:16:57 by asadritd          #+#    #+#             */
-/*   Updated: 2022/09/15 20:02:16 by asadritd         ###   ########.fr       */
+/*   Updated: 2022/09/16 20:28:48 by asadritd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,20 @@ char	wh_remain(char *remain, char **line)
 	else
 		*line = strnew(1);
 	return(ptr_n);
+}
+
+char	*gnl_calloc(int count)
+{
+	char *str;
+	int it;
+	
+	it = 0;
+	str = malloc (count * sizeof(char));
+	if (!str)
+		return (NULL);
+	while (it < count)
+		str[it++] = '\0';
+	return (str);
 }
 
 char	*get_next_line(int fd)
