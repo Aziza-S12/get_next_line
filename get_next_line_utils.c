@@ -6,7 +6,7 @@
 /*   By: asadritd <asadritd@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 13:16:52 by asadritd          #+#    #+#             */
-/*   Updated: 2022/09/16 20:36:47 by asadritd         ###   ########.fr       */
+/*   Updated: 2022/09/17 18:51:08 by asadritd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*gnl_strdup(const char *str1)
 	return (str2);
 }
 
-char	gnl_strlen(const char *str)
+int	gnl_strlen(const char *str)
 {
 	unsigned int	i;
 
@@ -50,58 +50,71 @@ char	gnl_strlen(const char *str)
 	return(i);	
 }
 
-char	gnl_strchr(const char *str, int f)
+char	*gnl_strchr(const char *s, int f)
 {
-	char	*x;
+	char	find;
 	int		i;
-	int		len;
-	
+
+	find = (unsigned char)f;
 	i = 0;
-	x = (char *)str;
-	len = gnl_strlen(x);
-	while (i <= len)
+	while (s[i])
 	{
-		if (x[i] == (char)f)
-			return (&x[i]);
+		if (s[i] == find)
+			return ((char *)s + i);
 		i++;
 	}
-	return (NULL);
+	if (s[i] == find)
+		return ((char *)s + i);
+	return (0);
 }
 
-char	*gnl_strjoin(char const *str1, char const *str2)
+size_t	gnl_strlcpy(char *dest, const char *src, size_t dsize)
+{
+	size_t	j;
+	size_t	n;
+	char	*s;
+
+	j = 0;
+	n = 0;
+	s = (char *)src;
+	if (!dest)
+	{
+		return (0);
+	}
+	n = gnl_strlen(s);
+	if (!dsize)
+	{
+		return (n);
+	}
+	while (s[j] && j < dsize - 1)
+	{
+		dest[j] = s[j];
+		j++;
+	}
+	dest[j] = '\0';
+	return (n);
+}
+
+char	*gnl_strjoin(char const *s1, char const *s2)
 {
 	char	*newstr;
 	int		s1_l;
 	int		s2_l;
 
-	if (!str1 && !str2)
+	if (!s1 && !s2)
 		return (NULL);
-	if (!str1)
-		return (gnl_strdup(str2));
-	if (!str2)
-		return (gnl_strdup(str1));
-	s1_l = gnl_strlen(str1);
-	s2_l = gnl_strlen(str2);
-	newstr = malloc(sizeof( char) * (s1_l + s2_l + 1));
+	if (!s1)
+		return (gnl_strdup(s2));
+	if (!s2)
+		return (gnl_strdup(s1));
+	s1_l = gnl_strlen(s1);
+	s2_l = gnl_strlen(s2);
+	newstr = malloc(sizeof(char) * (s1_l + s2_l + 1));
 	if (!newstr)
 		return (NULL);
-	gnl_strcpy(newstr, str1, s1_l + 1);
-	gnl_strcpy(newstr + s1_l, str2, s2_l + 1);
+	gnl_strlcpy(newstr, s1, s1_l + 1);
+	gnl_strlcpy(newstr + s1_l, s2, s2_l + 1);
 	return (newstr);
-}
-
-size_t	gnl_strcpy(char *dest, const char *src)
-{
-	int	i;
-
-	i = 0;
-	while (src[i] != 0)
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	dest[i] = '\0';
-	return (dest);
 }
 
 #endif
