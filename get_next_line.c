@@ -6,7 +6,7 @@
 /*   By: asadritd <asadritd@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 13:16:57 by asadritd          #+#    #+#             */
-/*   Updated: 2022/09/19 13:29:40 by asadritd         ###   ########.fr       */
+/*   Updated: 2022/09/19 18:34:07 by asadritd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*wh_remain(char *remain, char **line)
 		}
 	}
 	else
-		*line = gnl_calloc(1);
+		*line = gnl_calloc(sizeof(char));
 	return(ptr_n);
 }
 
@@ -73,8 +73,8 @@ char	*get_next_line(int fd)
 	char		*ptr_n;
 	char		*keep;
 
-	line = NULL;
-	line = gnl_calloc (sizeof(char));
+	if (fd < 0)
+		return (NULL);
 	ptr_n = wh_remain(remain, &line);
 	while (!ptr_n && (bt_read = read(fd, buf, BUFF_SIZE)))
 	{
@@ -93,26 +93,42 @@ char	*get_next_line(int fd)
 		line = gnl_strjoin(line, buf);
 		free(keep);
 	}
-	return (0);
-}
-
-int main(void)
-{
-	int		fd;
-	char	*line;
-	
-	line = NULL;
-	fd = open("myfile.txt", O_RDONLY);
-	line = get_next_line(fd);
-	printf("line:%s\xA", line);
-	while (line)
+	if (bt_read <= BUFF_SIZE && *line)
 	{
-		line = get_next_line(fd);
-		printf("line:%s\xA", line);
+		buf[0] = '\0';
+		return (line);
 	}
-	
-
-	return 0;
+	else if (bt_read <= 0)
+	{
+		free(remain);
+		free(line);
+		line = NULL;
+		return (NULL);
+	}
+	else // bt_read <= BUFF_SIZE && !(*line)
+		return (line);
 }
 
+// int main(void)
+// {
+// 	int		fd;
+// 	char	*line;
+	
+// 	line = NULL;
+// 	fd = open("myfile.txt", O_RDONLY);
 
+
+// 	line = get_next_line(fd);
+// 	printf("-----------------------------------------------\n");
+// 	printf("line:%s\xA", line);
+// 	while (line)
+// 	{
+// 		line = get_next_line(fd);
+// 		printf("line:%s\xA", line);
+// 	}
+// 	printf("-----------------------------------------------\n");
+
+// 	while(1);
+
+// 	return 0;
+// }
