@@ -6,7 +6,7 @@
 /*   By: asadritd <asadritd@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 13:16:57 by asadritd          #+#    #+#             */
-/*   Updated: 2022/09/17 18:55:24 by asadritd         ###   ########.fr       */
+/*   Updated: 2022/09/19 13:29:40 by asadritd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,15 @@ char	*gnl_calloc(int count)
 char	*get_next_line(int fd)
 {
 	static char	*remain;
-	char 		**line;
+	char 		*line;
 	char		buf[BUFF_SIZE + 1];
 	int			bt_read;
 	char		*ptr_n;
 	char		*keep;
 
 	line = NULL;
-	*line = gnl_calloc (sizeof(char *));
-	ptr_n = wh_remain(remain, line);
+	line = gnl_calloc (sizeof(char));
+	ptr_n = wh_remain(remain, &line);
 	while (!ptr_n && (bt_read = read(fd, buf, BUFF_SIZE)))
 	{
 		buf[bt_read] = '\0';
@@ -84,9 +84,13 @@ char	*get_next_line(int fd)
 			*ptr_n = '\0';
 			ptr_n++;
 			remain = gnl_strdup(ptr_n);
+			keep = line;
+			line = gnl_strjoin(line, buf);
+			free(keep);
+			return (line);
 		}
-		keep = *line;
-		*line = gnl_strjoin(*line, buf);
+		keep = line;
+		line = gnl_strjoin(line, buf);
 		free(keep);
 	}
 	return (0);
@@ -99,11 +103,16 @@ int main(void)
 	
 	line = NULL;
 	fd = open("myfile.txt", O_RDONLY);
-	get_next_line(fd);
+	line = get_next_line(fd);
 	printf("line:%s\xA", line);
-
-	get_next_line(fd);
-	printf("line:%s\xA\xA", line);
+	while (line)
+	{
+		line = get_next_line(fd);
+		printf("line:%s\xA", line);
+	}
 	
+
 	return 0;
 }
+
+
