@@ -6,7 +6,7 @@
 /*   By: asadritd <asadritd@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 13:16:52 by asadritd          #+#    #+#             */
-/*   Updated: 2022/09/17 18:51:08 by asadritd         ###   ########.fr       */
+/*   Updated: 2022/09/19 19:46:56 by asadritd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ size_t	gnl_strlcpy(char *dest, const char *src, size_t dsize)
 	return (n);
 }
 
-char	*gnl_strjoin(char const *s1, char const *s2)
+char	*gnl_strjoin(char *s1, char const *s2)
 {
 	char	*newstr;
 	int		s1_l;
@@ -114,6 +114,8 @@ char	*gnl_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	gnl_strlcpy(newstr, s1, s1_l + 1);
 	gnl_strlcpy(newstr + s1_l, s2, s2_l + 1);
+	// if (s1)
+	// 	free(s1);
 	return (newstr);
 }
 

@@ -6,7 +6,7 @@
 /*   By: asadritd <asadritd@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 13:16:59 by asadritd          #+#    #+#             */
-/*   Updated: 2022/09/19 13:24:44 by asadritd         ###   ########.fr       */
+/*   Updated: 2022/09/20 15:23:05 by asadritd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*gnl_strdup(const char *str1);
 int		gnl_strlen(const char *str);
 char	*gnl_calloc(int count);
 char	*gnl_strchr(const char *str, int f);
-char	*gnl_strjoin(char const *str1, char const *str2);
+char	*gnl_strjoin(char *s1, char const *s2);
 char	*gnl_strcpy(char *dest, const char *src);
 size_t	gnl_strlcpy(char *dest, const char *src, size_t dsize);
 

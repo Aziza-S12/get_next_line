@@ -6,7 +6,7 @@
 /*   By: asadritd <asadritd@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 13:16:57 by asadritd          #+#    #+#             */
-/*   Updated: 2022/09/19 18:34:07 by asadritd         ###   ########.fr       */
+/*   Updated: 2022/09/20 17:08:45 by asadritd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,20 +74,28 @@ char	*get_next_line(int fd)
 	char		*keep;
 
 	if (fd < 0)
-		return (NULL);
+		return ((char *)0);
 	ptr_n = wh_remain(remain, &line);
 	while (!ptr_n && (bt_read = read(fd, buf, BUFF_SIZE)))
 	{
+		if (bt_read < 0)
+		{
+			free(line);
+			return (NULL);
+		}
 		buf[bt_read] = '\0';
 		if((ptr_n = gnl_strchr(buf, '\n')))
 		{
 			*ptr_n = '\0';
 			ptr_n++;
+			if (remain) free(remain);
 			remain = gnl_strdup(ptr_n);
 			keep = line;
 			line = gnl_strjoin(line, buf);
 			free(keep);
-			return (line);
+			keep = gnl_strjoin(line, "\n");
+			free(line);
+			return (keep);
 		}
 		keep = line;
 		line = gnl_strjoin(line, buf);
@@ -100,13 +108,17 @@ char	*get_next_line(int fd)
 	}
 	else if (bt_read <= 0)
 	{
-		free(remain);
-		free(line);
+		if (remain) free(remain);
+	 	free(line);
 		line = NULL;
 		return (NULL);
 	}
 	else // bt_read <= BUFF_SIZE && !(*line)
-		return (line);
+	{
+		keep = gnl_strjoin(line, "\n");
+		free(line);
+		return (keep);
+	}
 }
 
 // int main(void)
@@ -116,19 +128,19 @@ char	*get_next_line(int fd)
 	
 // 	line = NULL;
 // 	fd = open("myfile.txt", O_RDONLY);
-
-
 // 	line = get_next_line(fd);
 // 	printf("-----------------------------------------------\n");
-// 	printf("line:%s\xA", line);
+// 	printf("line:%s", line);
 // 	while (line)
 // 	{
+// 		printf("line:%s", line);
+// 		free(line);
 // 		line = get_next_line(fd);
-// 		printf("line:%s\xA", line);
 // 	}
+// 	free(line);
 // 	printf("-----------------------------------------------\n");
 
-// 	while(1);
+// 	//while(1);
 
 // 	return 0;
 // }
