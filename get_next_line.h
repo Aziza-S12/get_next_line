@@ -6,20 +6,20 @@
 /*   By: asadritd <asadritd@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 13:16:59 by asadritd          #+#    #+#             */
-/*   Updated: 2022/09/21 18:08:04 by asadritd         ###   ########.fr       */
+/*   Updated: 2022/09/21 20:40:32 by asadritd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#include <stdio.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h> //open
-#include <unistd.h>
-#include <stdlib.h>
-#define BUFF_SIZE 42
+# include <stdio.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h> //open
+# include <unistd.h>
+# include <stdlib.h>
+# define BUFF_SIZE 42
 
 char	*get_next_line(int fd);
 char	*wh_remain(char *remain, char **line);

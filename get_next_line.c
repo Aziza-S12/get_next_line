@@ -6,26 +6,28 @@
 /*   By: asadritd <asadritd@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 13:16:57 by asadritd          #+#    #+#             */
-/*   Updated: 2022/09/21 19:23:35 by asadritd         ###   ########.fr       */
+/*   Updated: 2022/09/21 20:39:36 by asadritd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdbool.h>
 
-struct	structVar
+struct	s_tructVar
 {
-	int bt_read;
-	char		buf[BUFF_SIZE + 1];
+	int		bt_read;
+	char	buf[BUFF_SIZE + 1];
 } var;
 
 char	*wh_remain(char *remain, char **line)
 {
-	char *ptr_n;
-	
+	char	*ptr_n;
+
 	ptr_n = NULL;
-	if(remain)
+	if (remain)
 	{
-		if((ptr_n = gnl_strchr(remain, '\n')))
+		ptr_n = gnl_strchr(remain, '\n');
+		if (ptr_n)
 		{
 			*ptr_n = '\0';
 			*line = gnl_strdup(remain);
@@ -39,8 +41,8 @@ char	*wh_remain(char *remain, char **line)
 		}
 	}
 	else
-		*line = malloc(((int)sizeof(char)) * sizeof(char));
-	return(ptr_n);
+		*line = malloc(((int) sizeof(char)) * sizeof(char));
+	return (ptr_n);
 }
 
 char	*x_cases(char **line, char **keep, char *remain)
@@ -54,7 +56,7 @@ char	*x_cases(char **line, char **keep, char *remain)
 	{
 		if (remain)
 			free(remain);
-	 	free(*line);
+		free (*line);
 		*line = NULL;
 		return (NULL);
 	}
@@ -66,7 +68,7 @@ char	*x_cases(char **line, char **keep, char *remain)
 	}
 }
 
-char	*func(char **ptr_n, char **remain, char **line, char **keep)
+char	*joining(char **ptr_n, char **remain, char **line, char **keep)
 {
 	**ptr_n = '\0';
 	(*ptr_n)++;
@@ -81,17 +83,26 @@ char	*func(char **ptr_n, char **remain, char **line, char **keep)
 	return (*keep);
 }
 
+bool	func1(int fd)
+{
+	var.bt_read = read(fd, var.buf, BUFF_SIZE);
+	if (var.bt_read)
+		return (true);
+	else
+		return (false);
+}
+
 char	*get_next_line(int fd)
 {
 	static char	*remain;
-	char 		*line;
+	char		*line;
 	char		*ptr_n;
 	char		*keep;
 
 	if (fd < 0)
 		return ((char *)0);
 	ptr_n = wh_remain(remain, &line);
-	while (!ptr_n && (var.bt_read = read(fd, var.buf, BUFF_SIZE)))
+	while ((!ptr_n) && func1(fd))
 	{
 		if (var.bt_read < 0)
 		{
@@ -99,8 +110,9 @@ char	*get_next_line(int fd)
 			return (NULL);
 		}
 		var.buf[var.bt_read] = '\0';
-		if((ptr_n = gnl_strchr(var.buf, '\n')))
-			return (func(&ptr_n, &remain, &line, &keep));
+		ptr_n = gnl_strchr(var.buf, '\n');
+		if (ptr_n)
+			return (joining(&ptr_n, &remain, &line, &keep));
 		keep = line;
 		line = gnl_strjoin(line, var.buf);
 		free(keep);
@@ -108,12 +120,11 @@ char	*get_next_line(int fd)
 	return (x_cases(&line, &keep, remain));
 }
 
-
 // int main(void)
 // {
 // 	int		fd;
 // 	char	*line;
-	
+
 // 	line = NULL;
 // 	fd = open("myfile.txt", O_RDONLY);
 // 	line = get_next_line(fd);
@@ -127,8 +138,6 @@ char	*get_next_line(int fd)
 // 	}
 // 	free(line);
 // 	printf("-----------------------------------------------\n");
-
-// 	//while(1);
 
 // 	return 0;
 // }

@@ -6,7 +6,7 @@
 /*   By: asadritd <asadritd@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/09 13:16:52 by asadritd          #+#    #+#             */
-/*   Updated: 2022/09/21 18:08:08 by asadritd         ###   ########.fr       */
+/*   Updated: 2022/09/21 20:40:15 by asadritd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
 
 char	*gnl_strdup(const char *str1)
 {
-	int i;
-	int len; 
-	char *str2;
+	int		i;
+	int		len;
+	char	*str2;
 
 	len = 0;
 	while (str1[len])
@@ -26,13 +26,13 @@ char	*gnl_strdup(const char *str1)
 	str2 = (char *)malloc(sizeof(char) * (len + 1));
 	if (!(str2))
 	{
-		return(NULL);
+		return (NULL);
 	}
 	i = 0;
 	while (str1[i])
 	{
 		str2[i] = str1[i];
-		i++;		
+		i++;
 	}
 	str2[i] = '\0';
 	return (str2);
@@ -45,9 +45,9 @@ int	gnl_strlen(const char *str)
 	i = 0;
 	if (!str)
 		return (0);
-	while(str[i])
+	while (str[i])
 		i++;
-	return(i);	
+	return (i);
 }
 
 char	*gnl_strchr(const char *s, int f)
@@ -114,8 +114,6 @@ char	*gnl_strjoin(char *s1, char const *s2)
 		return (NULL);
 	gnl_strlcpy(newstr, s1, s1_l + 1);
 	gnl_strlcpy(newstr + s1_l, s2, s2_l + 1);
-	// if (s1)
-	// 	free(s1);
 	return (newstr);
 }
 
