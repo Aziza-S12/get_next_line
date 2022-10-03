@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asadritd <asadritd@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/09 13:16:52 by asadritd          #+#    #+#             */
-/*   Updated: 2022/10/03 13:19:14 by asadritd         ###   ########.fr       */
+/*   Created: 2022/09/26 15:39:11 by asadritd          #+#    #+#             */
+/*   Updated: 2022/10/03 13:21:49 by asadritd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#ifndef GET_NEXT_LINE_UTILS
-# define GET_NEXT_LINE_UTILS
+#include "get_next_line_bonus.h"
+#ifndef GET_NEXT_LINE_UTILS_BONUS
+# define GET_NEXT_LINE_UTILS_BONUS
 
 char	*gnl_strdup(const char *str1)
 {

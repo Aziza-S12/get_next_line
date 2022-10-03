@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asadritd <asadritd@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/09 13:16:59 by asadritd          #+#    #+#             */
-/*   Updated: 2022/10/03 13:18:42 by asadritd         ###   ########.fr       */
+/*   Created: 2022/09/26 15:40:12 by asadritd          #+#    #+#             */
+/*   Updated: 2022/10/03 13:21:30 by asadritd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <stdio.h>
 # include <sys/types.h>
 # include <sys/stat.h>
-# include <fcntl.h>
+# include <fcntl.h> //open
 # include <unistd.h>
 # include <stdlib.h>
+#include "get_next_line_bonus.h"
 #include <stdbool.h>
 # define BUFF_SIZE 42
 

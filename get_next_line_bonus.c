@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asadritd <asadritd@student.42wolfsburg.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/09 13:16:57 by asadritd          #+#    #+#             */
-/*   Updated: 2022/10/03 13:18:07 by asadritd         ###   ########.fr       */
+/*   Created: 2022/09/26 15:38:43 by asadritd          #+#    #+#             */
+/*   Updated: 2022/10/03 13:19:44 by asadritd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 struct	s_tructVar
 {
@@ -98,7 +98,7 @@ char	*get_next_line(int fd)
 	char		*ptr_n;
 	char		*keep;
 
-	if (fd < 0)
+	if (fd < 0 || fd > 1024 || BUFF_SIZE < 1)
 		return ((char *)0);
 	ptr_n = wh_remain(remain, &line);
 	while ((!ptr_n) && func1(fd))
@@ -118,25 +118,3 @@ char	*get_next_line(int fd)
 	}
 	return (x_cases(&line, &keep, remain));
 }
-
-// int main(void)
-// {
-// 	int		fd;
-// 	char	*line;
-
-// 	line = NULL;
-// 	fd = open("myfile.txt", O_RDONLY);
-// 	line = get_next_line(fd);
-// 	printf("-----------------------------------------------\n");
-// 	printf("line:%s", line);
-// 	while (line)
-// 	{
-// 		printf("line:%s", line);
-// 		free(line);
-// 		line = get_next_line(fd);
-// 	}
-// 	free(line);
-// 	printf("-----------------------------------------------\n");
-
-// 	return 0;
-// }
